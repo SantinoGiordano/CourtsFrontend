@@ -1,1 +1,1 @@
-export const APIEVENT_URI = 'https://localhost:3000'
+export const APICOURT_URI = 'https://localhost:3000'
