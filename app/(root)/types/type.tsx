@@ -1,4 +1,5 @@
 export type GameItem ={
+    players: number;
     _id: string,
     name: string;
     status: boolean;
