@@ -9,6 +9,7 @@ const SearchBar: React.FC<Props> = ({ value, onChange }) => {
   return (
     <>
       <input
+        id="search"
         list="game-types"
         name="type"
         value={value}
@@ -17,7 +18,6 @@ const SearchBar: React.FC<Props> = ({ value, onChange }) => {
         className="input input-bordered w-full"
         required
       />
-
       <datalist id="game-types">
         <option value="5 vs 5" />
         <option value="4 vs 4" />
