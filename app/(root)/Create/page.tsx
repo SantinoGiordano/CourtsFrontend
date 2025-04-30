@@ -25,7 +25,7 @@ const CreateGame: React.FC = () => {
     const parsedValue =
       type === "checkbox"
         ? checked
-        : name === "players" || name === "price"
+        : name === "playershave" || name === "playersneed" || name === "price"
         ? Number(value)
         : value;
 
@@ -41,7 +41,7 @@ const CreateGame: React.FC = () => {
     setSuccess(false);
 
     try {
-      const response = await fetch("http://localhost:8080/api/Games", {
+      const response = await fetch("http://localhost:8080/api/makegames", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -92,15 +92,6 @@ const CreateGame: React.FC = () => {
           <option value="volleyball">21</option>
           <option value="tennis">Other</option>
         </select>
-        {/* <input
-          type="text"
-          name="name"
-          value={form.name}
-          onChange={handleChange}
-          placeholder="Game Name"
-          className="input input-bordered w-full"
-          required
-        /> */}
         Where:
         <input
           type="text"
@@ -113,20 +104,20 @@ const CreateGame: React.FC = () => {
         Player you have:
         <input
           type="number"
-          name="players"
+          name="playershave"
           value={form.playershave}
           onChange={handleChange}
           placeholder="How many players do you have"
           className="input input-bordered w-full"
           min={0}
         />
-        Player you need:
+        Players Needed:
         <input
           type="number"
-          name="players"
+          name="playersneed"
           value={form.playersneed}
           onChange={handleChange}
-          placeholder="How many players do you have"
+          placeholder="How many players do you need"
           className="input input-bordered w-full"
           min={0}
         />
