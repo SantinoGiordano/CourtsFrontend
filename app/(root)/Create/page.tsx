@@ -4,7 +4,6 @@ import { GameItem } from "../types/type";
 
 const CreateGame: React.FC = () => {
   const [form, setForm] = useState<Omit<GameItem, "_id">>({
-    name: "",
     status: false,
     playersneed: 0,
     playershave: 0,
@@ -55,7 +54,6 @@ const CreateGame: React.FC = () => {
 
       setSuccess(true);
       setForm({
-        name: "",
         status: false,
         playershave: 0,
         playersneed: 0,
@@ -86,11 +84,11 @@ const CreateGame: React.FC = () => {
           <option value="" disabled>
             Select Game Type
           </option>
-          <option value="basketball">5 vs 5</option>
-          <option value="soccer">4 vs 4</option>
-          <option value="soccer">3 vs 3</option>
-          <option value="volleyball">21</option>
-          <option value="tennis">Other</option>
+          <option value="5 vs 5">5 vs 5</option>
+          <option value="4 vs 4">4 vs 4</option>
+          <option value="3 vs 3">3 vs 3</option>
+          <option value="21">21</option>
+          <option value="Other">Other</option>
         </select>
         Where:
         <input
