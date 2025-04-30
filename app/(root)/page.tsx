@@ -55,10 +55,10 @@ export default function Home() {
                 <span className="font-semibold">Status:</span>{" "}
                 {game.status ? "Full" : "Need players"}
               </p>
-              <p className="text-gray-700 mb-1">
-                <span className="font-semibold">Players Playing:</span> {game.playershave}
-                <span className="font-semibold">Players Needed:</span> {game.playersneed}
-              </p>
+              <div className="text-gray-700 mb-1">
+                <div className="font-semibold">Players Playing: {game.playershave}</div> 
+                <div className="font-semibold">Players Needed: {game.playersneed}</div> 
+              </div>
               {game.time && (
                 <p className="text-gray-500 text-sm mt-2">
                   <span className="font-semibold">Time:</span>{" "}
