@@ -17,7 +17,7 @@ export default function Navbar() {
 
         <div className="hidden md:flex space-x-6">
           <Link href="/" className="text-zinc-600 dark:text-zinc-200 hover:text-blue-500">Find Games</Link>
-          <Link href="/about" className="text-zinc-600 dark:text-zinc-200 hover:text-blue-500">About</Link>
+          <Link href="./Create" className="block text-zinc-600 dark:text-zinc-200 hover:text-blue-500">Create</Link>
           <Link href="/projects" className="text-zinc-600 dark:text-zinc-200 hover:text-blue-500">Projects</Link>
           <Link href="/contact" className="text-zinc-600 dark:text-zinc-200 hover:text-blue-500">Contact</Link>
         </div>
@@ -32,7 +32,7 @@ export default function Navbar() {
       {isOpen && (
         <div className="md:hidden px-4 pb-3 space-y-2">
           <Link href="./" className="block text-zinc-600 dark:text-zinc-200 hover:text-blue-500">Find Games</Link>
-          <Link href="./about" className="block text-zinc-600 dark:text-zinc-200 hover:text-blue-500">Create</Link>
+          <Link href="./Create" className="block text-zinc-600 dark:text-zinc-200 hover:text-blue-500">Create</Link>
           <Link href="./projects" className="block text-zinc-600 dark:text-zinc-200 hover:text-blue-500">About</Link>
           <Link href="./contact" className="block text-zinc-600 dark:text-zinc-200 hover:text-blue-500">Contact</Link>
         </div>
