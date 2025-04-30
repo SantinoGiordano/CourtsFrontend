@@ -6,10 +6,10 @@ const CreateGame: React.FC = () => {
   const [form, setForm] = useState<Omit<GameItem, "_id">>({
     name: "",
     status: false,
-    players: 0,
+    playersneed: 0,
+    playershave: 0,
     time: undefined,
     location: "",
-    price: 0,
     type: "",
   });
 
@@ -57,7 +57,8 @@ const CreateGame: React.FC = () => {
       setForm({
         name: "",
         status: false,
-        players: 0,
+        playershave: 0,
+        playersneed: 0,
         time: undefined,
         location: "",
         type: "",
@@ -113,7 +114,7 @@ const CreateGame: React.FC = () => {
         <input
           type="number"
           name="players"
-          value={form.players}
+          value={form.playershave}
           onChange={handleChange}
           placeholder="How many players do you have"
           className="input input-bordered w-full"
@@ -123,7 +124,7 @@ const CreateGame: React.FC = () => {
         <input
           type="number"
           name="players"
-          value={form.players}
+          value={form.playersneed}
           onChange={handleChange}
           placeholder="How many players do you have"
           className="input input-bordered w-full"
