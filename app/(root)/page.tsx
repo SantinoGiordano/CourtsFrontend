@@ -81,11 +81,11 @@ export default function Home() {
               </p>
               <p
                 className={`mb-1 ${
-                  game.status ? "text-green-600" : "text-red-600"
+                  game.status ? "text-red-600" : "text-green-600"
                 }`}
               >
                 <span className="font-semibold">Status:</span>{" "}
-                {game.status ? "Full" : "Need players"}
+                {game.status ? "Need players" : "Full"}
               </p>
               <div className="text-gray-700 mb-1">
                 <div className="font-semibold">
