@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { GameItem } from "./types/type";
+import { GameItem } from "../../types/type";
 import SearchBar from "../componets/searchbar";
 
 
