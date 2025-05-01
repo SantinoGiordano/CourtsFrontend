@@ -129,15 +129,15 @@ const CreateGame: React.FC = () => {
           className="input input-bordered w-full"
         />
         <label className="flex items-center space-x-2">
+        <span>Check box if game no spots are avalible</span>
           <input
             type="checkbox"
             name="status"
             checked={form.status}
             onChange={handleChange}
           />
-
-          <span>Game Full?</span>
         </label>
+        
         <button
           type="submit"
           className="btn btn-primary w-full"
