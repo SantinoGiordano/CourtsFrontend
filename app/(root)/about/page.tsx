@@ -1,3 +1,7 @@
 export default function About(){
-    return null
+    return(
+        <div>
+           Rules 
+        </div>
+    )
 }
