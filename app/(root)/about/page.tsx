@@ -1,17 +1,51 @@
 export default function About() {
   return (
-    <div>
-      <p>How it work:</p>
-      <div>
-        Create a post by filling in the information in the{" "}
-        <a href="/Create">Create</a> page, let people know how many your
-        bringing and how meny youll need so they can plan accordingly.
+    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white py-12 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-3xl mx-auto bg-white rounded-3xl shadow-xl p-10 space-y-10">
+        <header className="text-center">
+          <h1 className="text-4xl font-extrabold text-gray-900 mb-2">
+            About Court Connect
+          </h1>
+          <p className="text-gray-500 text-lg">
+            Bringing order to the chaos of local courts.
+          </p>
+        </header>
+
+        <section>
+          <h2 className="text-2xl font-semibold text-gray-800 mb-4">
+            How It Works
+          </h2>
+          <p className="text-gray-700 mb-3 leading-relaxed">
+            Creating a game post is easy! Head over to the{" "}
+            <a
+              href="/Create"
+              className="text-indigo-600 font-medium underline hover:text-indigo-800 transition-colors"
+            >
+              Create
+            </a>{" "}
+            page and fill in the necessary details. Let us know how many players
+            you have and how many are needed so that others can plan
+            accordingly.
+          </p>
+          <p className="text-gray-700 leading-relaxed">
+            Once a game post is made, everyone can view it and see the scheduled
+            time and location for the game, ensuring that you’re always in the
+            loop.
+          </p>
+        </section>
+
+        <section>
+          <h2 className="text-2xl font-semibold text-gray-800 mb-4">
+            Our Mission
+          </h2>
+          <p className="text-gray-700 leading-relaxed">
+            Our mission is to organize the chaos of the courts by connecting
+            players and ensuring that you never end up at an empty court. We’re
+            here to make it simple and efficient for you to find games, know
+            where they are being played, and join in on the fun.
+          </p>
+        </section>
       </div>
-      <div>
-        Once a game post has been madde everyone can view it and see what time
-        youll be at the courts
-      </div>
-      <p>Misson</p>
     </div>
   );
 }
