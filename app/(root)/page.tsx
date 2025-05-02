@@ -74,7 +74,9 @@ export default function Home() {
                 <h2 className="text-2xl font-bold text-black">Game Type:</h2>
                 <span className="text-2xl text-gray-800">{game.type}</span>
               </div>
-
+              <p className="text-gray-700 mb-1">
+                <span className="font-semibold">Whos Posting:</span> {game.name}
+              </p>
               <p className="text-gray-700 mb-1">
                 <span className="font-semibold">Location:</span> {game.location}
               </p>
