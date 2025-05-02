@@ -1,6 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import { GameItem } from "../../../types/type";
+import { APICOURT_URI } from "@/utils/env";
 
 const CreateGame: React.FC = () => {
   const [form, setForm] = useState<Omit<GameItem, "_id">>({
@@ -48,7 +49,7 @@ const CreateGame: React.FC = () => {
     setSuccess(false);
 
     try {
-      const response = await fetch("http://localhost:8080/api/makegames", {
+      const response = await fetch(`${APICOURT_URI}/api/makegames`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
