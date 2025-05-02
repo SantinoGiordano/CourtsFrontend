@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import { GameItem } from "../../types/type";
 import SearchBar from "../componets/searchbar";
 
-
 export default function Home() {
   const [items, setItems] = useState<GameItem[]>([]);
   const [loading, setLoading] = useState(true);
@@ -23,16 +22,14 @@ export default function Home() {
         setLoading(false);
       }
     };
-  
+
     fetchGames();
   }, []);
-  
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     console.log("Searching:", e.target.value); // Add this
     setSearchValue(e.target.value);
   };
-  
 
   const filteredGames = items.filter((game) =>
     game.type?.toLowerCase().includes(searchValue.trim().toLowerCase())
@@ -45,8 +42,10 @@ export default function Home() {
       </h1>
 
       <div className="max-w-md mx-auto mb-6">
-        <label htmlFor="search" className="block mb-2 text-sm font-medium text-gray-700">
-        </label>
+        <label
+          htmlFor="search"
+          className="block mb-2 text-sm font-medium text-gray-700"
+        ></label>
         <SearchBar value={searchValue} onChange={handleSearchChange} />
         {searchValue && (
           <button
