@@ -8,7 +8,7 @@ export default function Home() {
   const [items, setItems] = useState<GameItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchValue, setSearchValue] = useState("");
-  const [expandedId, setExpandedId] = useState<string | null>(null);
+  const [expanded, setExpanded] = useState<string | null>(null);
 
 
   useEffect(() => {
@@ -111,13 +111,13 @@ export default function Home() {
                 <p
                   className="text-blue-600 text-sm cursor-pointer hover:underline"
                   onClick={() =>
-                    setExpandedId(expandedId === game._id ? null : game._id)
+                    setExpanded(expanded === game._id ? null : game._id)
                   }
                 >
-                  {expandedId === game._id ? "Hide Description" : "Description"}
+                  {expanded === game._id ? "Hide Description" : "Description"}
                 </p>
 
-                {expandedId === game._id && (
+                {expanded === game._id && (
                   <p className="text-gray-700 mt-2 border-t pt-2">
                     {game.description}
                   </p>
