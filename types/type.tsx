@@ -7,4 +7,5 @@ export type GameItem ={
     name: string;
     location?: string;
     type: string;
+    description: string;
   };
