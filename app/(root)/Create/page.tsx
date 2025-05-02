@@ -11,6 +11,7 @@ const CreateGame: React.FC = () => {
     location: "",
     type: "",
     name: "",
+    description: "",
   });
 
   const [loading, setLoading] = useState(false);
@@ -62,6 +63,7 @@ const CreateGame: React.FC = () => {
         location: "",
         type: "",
         name: "",
+        description: "",
       });
     } catch (error) {
       console.error("Error:", error);
