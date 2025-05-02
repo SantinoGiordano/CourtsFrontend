@@ -68,40 +68,45 @@ export default function Home() {
           {filteredGames.map((game) => (
             <div
               key={game._id}
-              className="bg-white rounded-2xl shadow-lg p-6 transition hover:shadow-2xl border border-gray-200"
+              className="bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden transition hover:shadow-2xl"
             >
-              <div className="flex items-center space-x-2 mb-2">
-                <h2 className="text-2xl font-bold text-black">Game Type:</h2>
-                <span className="text-2xl text-gray-800">{game.type}</span>
+              {/* Game Type - Blue Header */}
+              <div className="bg-blue-600 text-white px-6 py-4">
+                <h2 className="text-xl font-bold">Game Type: {game.type}</h2>
               </div>
-              <p className="text-gray-700 mb-1">
-                <span className="font-semibold">Whos Posting:</span> {game.name}
-              </p>
-              <p className="text-gray-700 mb-1">
-                <span className="font-semibold">Location:</span> {game.location}
-              </p>
-              <p
-                className={`mb-1 ${
-                  game.status ? "text-green-600" : "text-red-600"
-                }`}
-              >
-                <span className="font-semibold">Status:</span>{" "}
-                {game.status ? "Full" : "Need Players"}
-              </p>
-              <div className="text-gray-700 mb-1">
-                <div className="font-semibold">
-                  Players Playing: {game.playershave}
-                </div>
-                <div className="font-semibold">
-                  Players Needed: {game.playersneed}
-                </div>
-              </div>
-              {game.time && (
-                <p className="text-gray-500 text-sm mt-2">
-                  <span className="font-semibold">Time:</span>{" "}
-                  {new Date(game.time).toLocaleString()}
+
+              {/* Rest of the card - White */}
+              <div className="p-6 space-y-2">
+                <p className="text-gray-700">
+                  <span className="font-semibold">Who&apos;s Posting:</span>{" "}
+                  {game.name}
                 </p>
-              )}
+                <p className="text-gray-700">
+                  <span className="font-semibold">Location:</span>{" "}
+                  {game.location}
+                </p>
+                <p
+                  className={`${
+                    game.status ? "text-green-600" : "text-red-600"
+                  } font-semibold`}
+                >
+                  <span>Status:</span> {game.status ? "Full" : "Need Players"}
+                </p>
+                <p className="text-gray-700">
+                  <span className="font-semibold">Players Playing:</span>{" "}
+                  {game.playershave}
+                </p>
+                <p className="text-gray-700">
+                  <span className="font-semibold">Players Needed:</span>{" "}
+                  {game.playersneed}
+                </p>
+                {game.time && (
+                  <p className="text-gray-500 text-sm">
+                    <span className="font-semibold">Time:</span>{" "}
+                    {new Date(game.time).toLocaleString()}
+                  </p>
+                )}
+              </div>
             </div>
           ))}
         </div>
