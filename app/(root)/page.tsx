@@ -11,13 +11,20 @@ export default function Home() {
   const [expanded, setExpanded] = useState<string | null>(null);
 
 
+
   useEffect(() => {
     const fetchGames = async () => {
       try {
         const res = await fetch("http://localhost:8080/api/Games");
         const data = await res.json();
-        console.log("Fetched games:", data); // Add this
-        setItems(data);
+        console.log("Fetched games:", data); // Add this to check fetched data
+
+        // Ensure fetched data is an array
+        if (Array.isArray(data)) {
+          setItems(data);
+        } else {
+          console.error("Fetched data is not an array:", data);
+        }
       } catch (err) {
         console.error("Error fetching games:", err);
       } finally {
@@ -29,13 +36,18 @@ export default function Home() {
   }, []);
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log("Searching:", e.target.value); // Add this
+    console.log("Searching:", e.target.value); // Add this to track search value
     setSearchValue(e.target.value);
   };
 
-  const filteredGames = items.filter((game) =>
-    game.type?.toLowerCase().includes(searchValue.trim().toLowerCase())
-  );
+  // Only filter if items is not empty and is an array
+  const filteredGames = loading
+    ? [] // Return an empty array if loading
+    : Array.isArray(items)
+    ? items.filter((game) =>
+        game.type?.toLowerCase().includes(searchValue.trim().toLowerCase())
+      )
+    : [];
 
   return (
     <div className="min-h-screen bg-gray-100 p-6">
