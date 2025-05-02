@@ -4,7 +4,7 @@ export type GameItem ={
     _id: string,
     status: boolean;
     time?: Date;
-    name:string;
+    name: string;
     location?: string;
     type: string;
   };
