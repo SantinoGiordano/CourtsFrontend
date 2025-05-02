@@ -10,6 +10,7 @@ const CreateGame: React.FC = () => {
     time: undefined,
     location: "",
     type: "",
+    name: "",
   });
 
   const [loading, setLoading] = useState(false);
@@ -24,7 +25,7 @@ const CreateGame: React.FC = () => {
     const parsedValue =
       type === "checkbox"
         ? checked
-        : name === "playershave" || name === "playersneed" || name === "price"
+        : name === "playershave" || name === "playersneed"
         ? Number(value)
         : value;
 
@@ -60,6 +61,7 @@ const CreateGame: React.FC = () => {
         time: undefined,
         location: "",
         type: "",
+        name: "",
       });
     } catch (error) {
       console.error("Error:", error);
@@ -69,84 +71,134 @@ const CreateGame: React.FC = () => {
   };
 
   return (
-    <div className="max-w-xl mx-auto bg-white p-6 rounded-2xl shadow-md mt-10">
-      <h1 className="text-2xl font-bold mb-4">Create New Game</h1>
+    <div className="max-w-2xl mx-auto mt-12 p-8 bg-white rounded-2xl shadow-lg space-y-6">
+      <h1 className="text-3xl font-bold text-center text-gray-800">
+        Create a New Game
+      </h1>
 
-      <form onSubmit={handleSubmit} className="space-y-4">
-        Game Type:
-        <select
-          name="type"
-          value={form.type}
-          onChange={handleChange}
-          className="select select-bordered w-full"
-          required
-        >
-          <option value="" disabled>
-            Select Game Type
-          </option>
-          <option value="5 vs 5">5 vs 5</option>
-          <option value="4 vs 4">4 vs 4</option>
-          <option value="3 vs 3">3 vs 3</option>
-          <option value="21">21</option>
-          <option value="Other">Other</option>
-        </select>
-        Where:
-        <input
-          type="text"
-          name="location"
-          value={form.location}
-          onChange={handleChange}
-          placeholder="Location"
-          className="input input-bordered w-full"
-        />
-        Player you have:
-        <input
-          type="number"
-          name="playershave"
-          value={form.playershave}
-          onChange={handleChange}
-          placeholder="How many players do you have"
-          className="input input-bordered w-full"
-          min={0}
-        />
-        Players Needed:
-        <input
-          type="number"
-          name="playersneed"
-          value={form.playersneed}
-          onChange={handleChange}
-          placeholder="How many players do you need"
-          className="input input-bordered w-full"
-          min={0}
-        />
-        When:
-        <input
-          type="datetime-local"
-          name="time"
-          onChange={(e) =>
-            setForm((prev) => ({ ...prev, time: new Date(e.target.value) }))
-          }
-          className="input input-bordered w-full"
-        />
-        <label className="flex items-center space-x-2">
-        <span>Check box if game no spots are avalible</span>
+      <form onSubmit={handleSubmit} className="space-y-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              Game Type
+            </label>
+            <select
+              name="type"
+              value={form.type}
+              onChange={handleChange}
+              className="select select-bordered w-full"
+              required
+            >
+              <option value="" disabled>
+                Select Game Type
+              </option>
+              <option value="5 vs 5">5 vs 5</option>
+              <option value="4 vs 4">4 vs 4</option>
+              <option value="3 vs 3">3 vs 3</option>
+              <option value="21">21</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              Location
+            </label>
+            <input
+              type="text"
+              name="location"
+              value={form.location}
+              onChange={handleChange}
+              placeholder="Where is the game?"
+              className="input input-bordered w-full"
+            />
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              Players You Have
+            </label>
+            <input
+              type="number"
+              name="playershave"
+              value={form.playershave}
+              onChange={handleChange}
+              className="input input-bordered w-full"
+              min={0}
+            />
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              Players Needed
+            </label>
+            <input
+              type="number"
+              name="playersneed"
+              value={form.playersneed}
+              onChange={handleChange}
+              className="input input-bordered w-full"
+              min={0}
+            />
+          </div>
+
+          <div className="md:col-span-2">
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              Date & Time
+            </label>
+            <input
+              type="datetime-local"
+              name="time"
+              onChange={(e) =>
+                setForm((prev) => ({
+                  ...prev,
+                  time: new Date(e.target.value),
+                }))
+              }
+              className="input input-bordered w-full"
+            />
+          </div>
+
+          <div className="md:col-span-2">
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              Your Name
+            </label>
+            <input
+              type="text"
+              name="name"
+              value={form.name}
+              onChange={handleChange}
+              placeholder="Who's posting?"
+              className="input input-bordered w-full"
+            />
+          </div>
+        </div>
+
+        <div className="flex items-center space-x-3">
           <input
             type="checkbox"
             name="status"
             checked={form.status}
             onChange={handleChange}
+            className="checkbox"
           />
-        </label>
-        
+          <label className="text-sm text-gray-600">
+            Check if there are no available spots
+          </label>
+        </div>
+
         <button
           type="submit"
-          className="btn btn-primary w-full"
+          className={`btn btn-primary w-full text-white ${
+            loading ? "opacity-70 cursor-not-allowed" : ""
+          }`}
           disabled={loading}
         >
           {loading ? "Creating..." : "Create Game"}
         </button>
+
         {success && (
-          <p className="text-green-600 text-sm text-center mt-2">
+          <p className="text-center text-green-600 font-medium">
             Game created successfully!
           </p>
         )}
