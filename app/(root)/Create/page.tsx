@@ -1,7 +1,6 @@
 "use client";
 import React, { useState } from "react";
 import { GameItem } from "../../../types/type";
-import { APICOURT_URI } from "@/utils/env";
 
 const CreateGame: React.FC = () => {
   const [form, setForm] = useState<Omit<GameItem, "_id">>({
@@ -25,31 +24,35 @@ const CreateGame: React.FC = () => {
   ) => {
     const target = e.target;
     const { name, value } = target;
-  
+
     let parsedValue: string | number | boolean;
-  
+
     // Handle checkboxes safely
     if (target instanceof HTMLInputElement && target.type === "checkbox") {
       parsedValue = target.checked;
-    } else if (name === "playershave" || name === "playersneed" || name === "price") {
+    } else if (
+      name === "playershave" ||
+      name === "playersneed" ||
+      name === "price"
+    ) {
       parsedValue = Number(value);
     } else {
       parsedValue = value;
     }
-  
+
     setForm((prev) => ({
       ...prev,
       [name]: parsedValue,
     }));
   };
-  
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
     setSuccess(false);
 
     try {
-      const response = await fetch(`${APICOURT_URI}/api/makegames`, {
+      const response = await fetch("http://localhost:8080/api/makegames", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -105,6 +108,7 @@ const CreateGame: React.FC = () => {
               <option value="4 vs 4">4 vs 4</option>
               <option value="3 vs 3">3 vs 3</option>
               <option value="21">21</option>
+              <option value="Just Shooting">Just shooting</option>
               <option value="Other">Other</option>
             </select>
           </div>
@@ -180,12 +184,15 @@ const CreateGame: React.FC = () => {
               placeholder="Who's posting?"
               className="input input-bordered w-full"
             />
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              Add Description (optional)
+            </label>
             <textarea
               name="description"
               value={form.description}
               onChange={handleChange}
               placeholder="Add a description"
-              className="textarea textarea-bordered w-full"
+              className="textarea textarea-bordered w-full p-3 rounded-md border-2 border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition duration-200"
               rows={4}
             />
           </div>
