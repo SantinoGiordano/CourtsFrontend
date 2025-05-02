@@ -18,24 +18,30 @@ const CreateGame: React.FC = () => {
   const [success, setSuccess] = useState(false);
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+    >
   ) => {
-    const target = e.target as HTMLInputElement;
-    const { name, value, type, checked } = target;
-
-    const parsedValue =
-      type === "checkbox"
-        ? checked
-        : name === "playershave" || name === "playersneed"
-        ? Number(value)
-        : value;
-
+    const target = e.target;
+    const { name, value } = target;
+  
+    let parsedValue: string | number | boolean;
+  
+    // Handle checkboxes safely
+    if (target instanceof HTMLInputElement && target.type === "checkbox") {
+      parsedValue = target.checked;
+    } else if (name === "playershave" || name === "playersneed" || name === "price") {
+      parsedValue = Number(value);
+    } else {
+      parsedValue = value;
+    }
+  
     setForm((prev) => ({
       ...prev,
       [name]: parsedValue,
     }));
   };
-
+  
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
@@ -172,6 +178,14 @@ const CreateGame: React.FC = () => {
               onChange={handleChange}
               placeholder="Who's posting?"
               className="input input-bordered w-full"
+            />
+            <textarea
+              name="description"
+              value={form.description}
+              onChange={handleChange}
+              placeholder="Add a description"
+              className="textarea textarea-bordered w-full"
+              rows={4}
             />
           </div>
         </div>
