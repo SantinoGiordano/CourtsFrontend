@@ -9,7 +9,7 @@ export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <nav className="w-full bg-white shadow-md dark:bg-zinc-900">
+    <nav className="w-full bg-white shadow-md dark:bg-zinc-900 fixed z-100">
       <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
         <Link href="./" className="text-xl font-bold text-zinc-800 dark:text-white">
           Courts
