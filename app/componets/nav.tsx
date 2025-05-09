@@ -19,6 +19,7 @@ export default function Navbar() {
           <Link href="./" className="text-zinc-600 dark:text-zinc-200 hover:text-blue-500">Find Games</Link>
           <Link href="./Create" className="block text-zinc-600 dark:text-zinc-200 hover:text-blue-500">Create</Link>
           <Link href="/About" className="text-zinc-600 dark:text-zinc-200 hover:text-blue-500">About</Link>
+          <Link href="./statusReport" className="block text-zinc-600 dark:text-zinc-200 hover:text-blue-500">Status Report</Link>
           <Link href="/contact" className="text-zinc-600 dark:text-zinc-200 hover:text-blue-500">Contact</Link>
         </div>
 
@@ -34,6 +35,7 @@ export default function Navbar() {
           <Link href="./" className="block text-zinc-600 dark:text-zinc-200 hover:text-blue-500">Find Games</Link>
           <Link href="./Create" className="block text-zinc-600 dark:text-zinc-200 hover:text-blue-500">Create</Link>
           <Link href="./About" className="block text-zinc-600 dark:text-zinc-200 hover:text-blue-500">About</Link>
+          <Link href="./statusReport" className="block text-zinc-600 dark:text-zinc-200 hover:text-blue-500">Status Report</Link>
           <Link href="./contact" className="block text-zinc-600 dark:text-zinc-200 hover:text-blue-500">Contact</Link>
         </div>
       )}
