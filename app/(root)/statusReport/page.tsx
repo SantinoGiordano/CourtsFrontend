@@ -2,7 +2,7 @@ export default function Status(){
     return(
         <>
         <div>
-            Status Report
+            Court-Status-Report
         </div>
         </>
     )
