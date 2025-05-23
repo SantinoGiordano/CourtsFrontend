@@ -16,7 +16,7 @@ export default function Navbar() {
         </Link>
 
         <div className="hidden md:flex space-x-6">
-          <Link href="./" className="text-zinc-600 dark:text-zinc-200 hover:text-blue-500">Find Games</Link>
+          <Link href="./Home" className="text-zinc-600 dark:text-zinc-200 hover:text-blue-500">Find Games</Link>
           <Link href="./Create" className="block text-zinc-600 dark:text-zinc-200 hover:text-blue-500">Create</Link>
           <Link href="/About" className="text-zinc-600 dark:text-zinc-200 hover:text-blue-500">About</Link>
           <Link href="./statusReport" className="block text-zinc-600 dark:text-zinc-200 hover:text-blue-500">Status Report</Link>
