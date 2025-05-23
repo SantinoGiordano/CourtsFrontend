@@ -1,6 +1,7 @@
 "use client";
+import { GameItem } from "@/types/type";
 import React, { useState } from "react";
-import { GameItem } from "../../../types/type";
+
 
 const CreateGame: React.FC = () => {
   const [form, setForm] = useState<Omit<GameItem, "_id">>({
