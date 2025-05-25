@@ -9,32 +9,30 @@ export default function SignInPage() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+const handleSubmit = async () => {
+  try {
+    const res = await fetch("http://localhost:8080/api/auth/signin", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ email, password }),
+    });
 
-    if (!email || !password) {
-      setError("Please enter both email and password.");
-      return;
+    const data = await res.json();
+
+    if (res.ok) {
+      localStorage.setItem("username", data.username);
+      alert("Welcome back, " + data.username);
+      // Redirect or update state here
+    } else {
+      alert(data.error || "Login failed");
     }
-
-    try {
-      const res = await fetch("http://localhost:8080/api/auth/signin", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password }),
-      });
-
-      if (res.ok) {
-        router.push("/Home"); 
-      } else {
-        const data = await res.json();
-        setError(data.message || "Sign in failed.");
-      }
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    } catch (err) {
-      setError("Something went wrong.");
-    }
-  };
+  } catch (err) {
+    console.error("Login error:", err);
+    alert("An error occurred during login.");
+  }
+};
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-900 text-white">
@@ -68,7 +66,7 @@ export default function SignInPage() {
           <input
             type="password"
             id="password"
-            placeholder="Email"
+            placeholder="Password"
             className="w-full px-3 py-2 rounded bg-gray-700 text-white"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
