@@ -23,9 +23,8 @@ export default function Home() {
       try {
         const res = await fetch("http://localhost:8080/api/Games");
         const data = await res.json();
-        console.log("Fetched games:", data); // Add this to check fetched data
+        console.log("Fetched games:", data);
 
-        // Ensure fetched data is an array
         if (Array.isArray(data)) {
           setItems(data);
         } else {
@@ -58,7 +57,6 @@ export default function Home() {
   return (
     <>
       <div className="text-white p-6">
-        <h1 className="text-3xl font-bold">Welcome, {username}!</h1>
       </div>
       <div className="min-h-screen bg-gray-100 p-6">
         <h1 className="text-3xl font-semibold mb-6 text-center text-gray-800">
