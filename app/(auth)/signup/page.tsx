@@ -78,7 +78,7 @@ export default function SignUpPage() {
           onClick={() => router.push("./")} 
           className=" mt-5 w-full bg-blue-600 hover:bg-blue-700 p-2 rounded font-semibold"
         >
-          Sign In
+          Move to Sign In
         </button>
       </form>
     </div>
