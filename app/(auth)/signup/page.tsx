@@ -29,12 +29,11 @@ export default function SignUpPage() {
 
       if (res.ok) {
         router.push("/Home");
-        alert("welcomeBack"+ username)
+        // alert("welcomeBack " + username);
       } else {
         setError(data.error || "Sign up failed.");
       }
     } catch (err) {
-      
       setError("Something went wrong.");
     }
   };
