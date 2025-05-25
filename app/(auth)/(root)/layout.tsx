@@ -7,7 +7,7 @@ export default function MainLayout({
 }) {
   return (
     <>
-      <Nav /> 
+      <Nav />
         {children}
     </>
   );
