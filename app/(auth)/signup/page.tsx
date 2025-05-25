@@ -6,34 +6,36 @@ import { useRouter } from "next/navigation";
 export default function SignUpPage() {
   const router = useRouter();
   const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const [success, setSuccess] = useState("");
-  const [username, setUsername] = useState("");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError("");
-    setSuccess("");
 
-    const res = await fetch("http://localhost:8080/api/auth/signup", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        email,
-        password,
-        username,
-      }),
-    });
+    if (!email || !username || !password) {
+      setError("Please fill in all fields.");
+      return;
+    }
 
-    const data = await res.json();
+    try {
+      const res = await fetch("http://localhost:8080/api/auth/signup", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password, username }),
+      });
 
-    if (!res.ok) {
-      setError(data.error || "Something went wrong");
-    } else {
-      setSuccess("User registered successfully!");
+      const data = await res.json();
+
+      if (res.ok) {
+        router.push("/Home");
+        alert("welcomeBack"+ username)
+      } else {
+        setError(data.error || "Sign up failed.");
+      }
+    } catch (err) {
+      
+      setError("Something went wrong.");
     }
   };
 
@@ -41,48 +43,70 @@ export default function SignUpPage() {
     <div className="min-h-screen flex items-center justify-center bg-gray-900 text-white">
       <form
         onSubmit={handleSubmit}
-        className="bg-gray-800 p-6 rounded shadow-md w-full max-w-md"
+        className="bg-gray-800 p-8 rounded-lg shadow-lg w-full max-w-md"
       >
-        <h2 className="text-2xl font-bold mb-4">Sign Up</h2>
-        {error && <p className="text-red-500 mb-2">{error}</p>}
-        {success && <p className="text-green-500 mb-2">{success}</p>}
+        <h2 className="text-2xl font-bold mb-6">Create Account</h2>
 
-        <input
-          type="username"
-          placeholder="Username"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-          className="w-full p-2 mb-4 bg-gray-700 rounded"
-          required
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          className="w-full p-2 mb-4 bg-gray-700 rounded"
-          required
-        />
-        <input
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          className="w-full p-2 mb-3 bg-gray-700 rounded"
-          required
-        />
+        {error && <div className="mb-4 text-red-400">{error}</div>}
+
+        <div className="mb-4">
+          <label htmlFor="username" className="block text-sm mb-1">
+            Username
+          </label>
+          <input
+            type="text"
+            id="username"
+            placeholder="Username"
+            className="w-full px-3 py-2 rounded bg-gray-700 text-white"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            required
+          />
+        </div>
+
+        <div className="mb-4">
+          <label htmlFor="email" className="block text-sm mb-1">
+            Email
+          </label>
+          <input
+            type="email"
+            id="email"
+            placeholder="Email"
+            className="w-full px-3 py-2 rounded bg-gray-700 text-white"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
+        </div>
+
+        <div className="mb-6">
+          <label htmlFor="password" className="block text-sm mb-1">
+            Password
+          </label>
+          <input
+            type="password"
+            id="password"
+            placeholder="Password"
+            className="w-full px-3 py-2 rounded bg-gray-700 text-white"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+        </div>
+
         <button
           type="submit"
-          className=" w-full bg-white hover:bg-gray-300 transition-colors px-4 py-2 rounded text-black"
-          onClick={() => router.push("./")}
+          className="w-full bg-blue-600 hover:bg-blue-700 transition-colors px-4 py-2 rounded"
         >
-          Create an Account
+          Sign Up
         </button>
+
         <button
-          onClick={() => router.push("./")}
-          className=" mt-5 w-full bg-blue-600 hover:bg-blue-700 p-2 rounded font-semibold"
+          type="button"
+          onClick={() => router.push("/")}
+          className="mt-5 w-full bg-white hover:bg-gray-300 transition-colors px-4 py-2 rounded text-black"
         >
-          Move to Sign In
+          Back to Sign In
         </button>
       </form>
     </div>
