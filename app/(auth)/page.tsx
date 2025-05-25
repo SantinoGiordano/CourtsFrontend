@@ -9,32 +9,32 @@ export default function SignInPage() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
-const handleSubmit = async (e: React.FormEvent) => {
-  e.preventDefault();
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
 
-  if (!email || !password) {
-    setError("Please enter both email and password.");
-    return;
-  }
-
-  try {
-    const res = await fetch("http://localhost:8080/api/auth/signin", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email, password }),
-    });
-
-    if (res.ok) {
-      router.push("/Home"); // ✅ redirect to /Home
-    } else {
-      const data = await res.json();
-      setError(data.message || "Sign in failed.");
+    if (!email || !password) {
+      setError("Please enter both email and password.");
+      return;
     }
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  } catch (err) {
-    setError("Something went wrong.");
-  }
-};
+
+    try {
+      const res = await fetch("http://localhost:8080/api/auth/signin", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
+      });
+
+      if (res.ok) {
+        router.push("/Home"); 
+      } else {
+        const data = await res.json();
+        setError(data.message || "Sign in failed.");
+      }
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    } catch (err) {
+      setError("Something went wrong.");
+    }
+  };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-900 text-white">
@@ -52,6 +52,7 @@ const handleSubmit = async (e: React.FormEvent) => {
           </label>
           <input
             type="email"
+            placeholder="Email"
             id="email"
             className="w-full px-3 py-2 rounded bg-gray-700 text-white"
             value={email}
@@ -67,6 +68,7 @@ const handleSubmit = async (e: React.FormEvent) => {
           <input
             type="password"
             id="password"
+            placeholder="Email"
             className="w-full px-3 py-2 rounded bg-gray-700 text-white"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
@@ -81,7 +83,9 @@ const handleSubmit = async (e: React.FormEvent) => {
           Sign In
         </button>
         <button
-          onClick={() => router.push("/signup")}
+          onClick={() => {
+            router.push("/signup");
+          }}
           className="mt-5 w-full bg-white hover:bg-gray-300 transition-colors px-4 py-2 rounded text-black"
         >
           Create an Account
