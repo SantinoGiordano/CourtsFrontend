@@ -9,3 +9,7 @@ export type GameItem ={
     type: string;
     description: string;
   };
+
+export type User = {
+  username: string
+}
