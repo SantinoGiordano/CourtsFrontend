@@ -9,27 +9,31 @@ export default function SignUpPage() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
-  const [username, setUsername] = useState("")
+  const [username, setUsername] = useState("");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
     setError("");
     setSuccess("");
 
     const res = await fetch("http://localhost:8080/api/auth/signup", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email, password }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email,
+        password,
+        username,
+      }),
     });
 
     const data = await res.json();
 
     if (!res.ok) {
-      setError(data.error || "Failed to sign up");
+      setError(data.error || "Something went wrong");
     } else {
-      setSuccess(data.message);
-      setTimeout(() => router.push("/auth/signin"), 1500);
+      setSuccess("User registered successfully!");
     }
   };
 
@@ -42,7 +46,7 @@ export default function SignUpPage() {
         <h2 className="text-2xl font-bold mb-4">Sign Up</h2>
         {error && <p className="text-red-500 mb-2">{error}</p>}
         {success && <p className="text-green-500 mb-2">{success}</p>}
-        
+
         <input
           type="username"
           placeholder="Username"
@@ -70,12 +74,12 @@ export default function SignUpPage() {
         <button
           type="submit"
           className=" w-full bg-white hover:bg-gray-300 transition-colors px-4 py-2 rounded text-black"
-          onClick={() => router.push("./")} 
-          >
+          onClick={() => router.push("./")}
+        >
           Create an Account
         </button>
         <button
-          onClick={() => router.push("./")} 
+          onClick={() => router.push("./")}
           className=" mt-5 w-full bg-blue-600 hover:bg-blue-700 p-2 rounded font-semibold"
         >
           Move to Sign In
