@@ -1,6 +1,7 @@
 "use client";
 
 import SearchBar from "@/app/componets/searchbar";
+import { useUserStore } from "@/app/store";
 import { GameItem } from "@/types/type";
 import { useEffect, useState } from "react";
 
@@ -9,14 +10,7 @@ export default function Home() {
   const [loading, setLoading] = useState(true);
   const [searchValue, setSearchValue] = useState("");
   const [expanded, setExpanded] = useState<string | null>(null);
-  const [username, setUsername] = useState("");
-
-  useEffect(() => {
-    const storedUsername = localStorage.getItem("username");
-    if (storedUsername) {
-      setUsername(storedUsername);
-    }
-  }, []);
+  const username = useUserStore((state) => state.username);
 
   useEffect(() => {
     const fetchGames = async () => {
@@ -44,8 +38,6 @@ export default function Home() {
     console.log("Searching:", e.target.value); // Add this to track search value
     setSearchValue(e.target.value);
   };
-
-  // Only filter if items is not empty and is an array
   const filteredGames = loading
     ? [] // Return an empty array if loading
     : Array.isArray(items)
@@ -56,13 +48,12 @@ export default function Home() {
 
   return (
     <>
-      <div className="text-white p-6">
-      </div>
+      <div className="text-white p-6"></div>
       <div className="min-h-screen bg-gray-100 p-6">
-        <h1 className="text-3xl font-semibold mb-6 text-center text-gray-800">
-          Games
-        </h1>
-
+        <h1 className="text-3xl font-semibold mb-6 text-center text-gray-800"></h1>
+       <h1 className="text-3xl font-bold">
+        Welcome {username || "Guest"}
+      </h1>
         <div className="max-w-md mx-auto mb-6">
           <label
             htmlFor="search"
