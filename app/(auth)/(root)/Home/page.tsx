@@ -52,7 +52,7 @@ export default function Home() {
       <div className="min-h-screen bg-gray-100 p-6">
         <h1 className="text-3xl font-semibold mb-6 text-center text-gray-800"></h1>
        <h1 className="text-3xl font-bold">
-        Welcome {username || "Guest"}
+        Welcome {username || ""}
       </h1>
         <div className="max-w-md mx-auto mb-6">
           <label
