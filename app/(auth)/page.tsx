@@ -1,43 +1,47 @@
 "use client";
 
-
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { useUserStore } from "../store";
 
 export default function SignInPage() {
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const setUsername = useUserStore((state) => state.setUsername);
 
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
 
-const handleSubmit = async (event: React.FormEvent) => {
-  event.preventDefault(); // <-- Prevent form from refreshing the page
-
-  try {
-    const res = await fetch("http://localhost:8080/api/auth/signin", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ email, password }),
-    });
-
-    const data = await res.json();
-
-    if (res.ok) {
-      localStorage.setItem("username", data.username);
-      alert("Welcome back, " + data.username);
-      router.push("/Home");
-    } else {
-      setError(data.error || "Login failed");
+    if (!email || !password) {
+      setError("Please fill in all fields.");
+      return;
     }
-  } catch (err) {
-    console.error("Login error:", err);
-    setError("An error occurred during login.");
-  }
-};
 
+    try {
+      const res = await fetch("http://localhost:8080/api/auth/signin", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, password }),
+      });
+
+      const data = await res.json();
+
+      if (res.ok) {
+        setUsername(data.username); // ✅ Set in Zustand
+        localStorage.setItem("username", data.username); // Optional
+        router.push("/Home");
+      } else {
+        setError(data.error || "Sign in failed.");
+      }
+    } catch (err) {
+      console.error("Signin error:", err);
+      setError("An error occurred during sign in.");
+    }
+  };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-900 text-white">
@@ -85,10 +89,10 @@ const handleSubmit = async (event: React.FormEvent) => {
         >
           Sign In
         </button>
+
         <button
-          onClick={() => {
-            router.push("/signup");
-          }}
+          onClick={() => router.push("/signup")}
+          type="button"
           className="mt-5 w-full bg-white hover:bg-gray-300 transition-colors px-4 py-2 rounded text-black"
         >
           Create an Account
