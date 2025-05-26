@@ -2,13 +2,15 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { useUserStore } from "@/app/store"; // adjust the import if needed
 
 export default function SignUpPage() {
   const router = useRouter();
   const [email, setEmail] = useState("");
-  const [username, setUsername] = useState("");
+  const [username, setUsernameInput] = useState(""); // local input state
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const setUsername = useUserStore((state) => state.setUsername); // zustand state setter
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -21,20 +23,24 @@ export default function SignUpPage() {
     try {
       const res = await fetch("http://localhost:8080/api/auth/signup", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password, username }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, username, password }),
       });
 
       const data = await res.json();
 
       if (res.ok) {
+        setUsername(data.username); // ✅ Save in Zustand
+        localStorage.setItem("username", data.username); // optional: for persistence
         router.push("/Home");
-        // alert("welcomeBack " + username);
       } else {
         setError(data.error || "Sign up failed.");
       }
     } catch (err) {
-      setError("Something went wrong.");
+      console.error("Signup error:", err);
+      setError("An error occurred during signup.");
     }
   };
 
@@ -58,7 +64,7 @@ export default function SignUpPage() {
             placeholder="Username"
             className="w-full px-3 py-2 rounded bg-gray-700 text-white"
             value={username}
-            onChange={(e) => setUsername(e.target.value)}
+            onChange={(e) => setUsernameInput(e.target.value)} // ✅ local state update
             required
           />
         </div>
