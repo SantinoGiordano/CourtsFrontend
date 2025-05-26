@@ -1,15 +1,11 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
-import { User } from "@/types/type";
+import { useState } from "react";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
-  const [user, setUser] = useState<User | null>(null);
-  const [loading, setLoading] = useState(true); // Add loading state
-
 
   return (
     <nav className="w-full bg-white shadow-md dark:bg-zinc-900 fixed z-100">
@@ -18,7 +14,7 @@ export default function Navbar() {
           href="./Home"
           className="text-xl font-bold text-zinc-800 dark:text-white"
         >
-          Games Hub
+          Game Center
         </Link>
 
         <div className="hidden md:flex space-x-6">
