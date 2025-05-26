@@ -33,7 +33,7 @@ export default function SignUpPage() {
 
       if (res.ok) {
         setUsername(data.username); // ✅ Save in Zustand
-        localStorage.setItem("username", data.username); // optional: for persistence
+        localStorage.setItem("username", data.username);
         router.push("/Home");
       } else {
         setError(data.error || "Sign up failed.");
