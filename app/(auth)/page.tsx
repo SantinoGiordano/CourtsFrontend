@@ -1,7 +1,8 @@
 "use client";
 
-import { useState } from "react";
+
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 export default function SignInPage() {
   const router = useRouter();
@@ -9,7 +10,10 @@ export default function SignInPage() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
-const handleSubmit = async () => {
+
+const handleSubmit = async (event: React.FormEvent) => {
+  event.preventDefault(); // <-- Prevent form from refreshing the page
+
   try {
     const res = await fetch("http://localhost:8080/api/auth/signin", {
       method: "POST",
@@ -24,15 +28,16 @@ const handleSubmit = async () => {
     if (res.ok) {
       localStorage.setItem("username", data.username);
       alert("Welcome back, " + data.username);
-      // Redirect or update state here
+      router.push("/Home");
     } else {
-      alert(data.error || "Login failed");
+      setError(data.error || "Login failed");
     }
   } catch (err) {
     console.error("Login error:", err);
-    alert("An error occurred during login.");
+    setError("An error occurred during login.");
   }
 };
+
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-900 text-white">
