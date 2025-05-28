@@ -142,7 +142,6 @@ const CreateGame: React.FC = () => {
     }));
   };
 
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
@@ -152,7 +151,7 @@ const CreateGame: React.FC = () => {
       const response = await fetch("http://localhost:8080/api/makegames", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form), 
+        body: JSON.stringify(form),
       });
 
       if (!response.ok) {
@@ -180,8 +179,9 @@ const CreateGame: React.FC = () => {
   };
 
   return (
-    <div className="max-w-2xl mx-auto mt-12 p-8 bg-white rounded-2xl shadow-lg space-y-6">
-      <h1 className="text-3xl font-bold text-center text-gray-800">
+    <div className="max-w-2xl mx-auto p-8 bg-white rounded-2xl shadow-lg space-y-6">
+       <p className="mt-"/>      
+       <h1 className="text-3xl font-bold text-center text-gray-800">
         Create a New Game
       </h1>
 
@@ -277,17 +277,6 @@ const CreateGame: React.FC = () => {
           </div>
 
           <div className="md:col-span-2">
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              Your Name
-            </label>
-            <input
-              type="text"
-              name="name"
-              value={form.name}
-              onChange={handleChange}
-              placeholder="Who's posting?"
-              className="input input-bordered w-full"
-            />
             <label className="block text-sm font-medium text-gray-700 mb-2 mt-3">
               Add Description (optional)
             </label>
@@ -313,10 +302,13 @@ const CreateGame: React.FC = () => {
           <span>
             <label className="text-sm text-gray-600">
               Check if your team is already full
-              <div className="tooltip" data-tip="explains the fill status">
+              <div
+                className="tooltip"
+                data-tip="By checking this, you indicate that you are NOT looking for players"
+              >
                 <button
                   type="button"
-                  className="ml-2 w-7 h-7 rounded-full bg-gray-200 text-gray-700 flex items-center justify-center text-xs font-bold border border-gray-300 hover:bg-gray-300 transition"
+                  className="ml-2 w-5 h-5 rounded-full bg-black text-white flex items-center justify-center text-xs font-bold border border-gray-300 hover:bg-gray-300 transition"
                   style={{
                     minWidth: "0.75rem",
                     minHeight: "0.75rem",
