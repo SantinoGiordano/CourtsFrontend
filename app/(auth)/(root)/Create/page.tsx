@@ -142,7 +142,7 @@ const CreateGame: React.FC = () => {
     }));
   };
 
-  // When submitting the form, make sure form.lat and form.lng are set
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
@@ -152,7 +152,7 @@ const CreateGame: React.FC = () => {
       const response = await fetch("http://localhost:8080/api/makegames", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form), // form should include lat and lng
+        body: JSON.stringify(form), 
       });
 
       if (!response.ok) {
@@ -310,9 +310,24 @@ const CreateGame: React.FC = () => {
             onChange={handleChange}
             className="checkbox"
           />
-          <label className="text-sm text-gray-600">
-            Check if there are no available spots
-          </label>
+          <span>
+            <label className="text-sm text-gray-600">
+              Check if your team is already full
+              <div className="tooltip" data-tip="explains the fill status">
+                <button
+                  type="button"
+                  className="ml-2 w-7 h-7 rounded-full bg-gray-200 text-gray-700 flex items-center justify-center text-xs font-bold border border-gray-300 hover:bg-gray-300 transition"
+                  style={{
+                    minWidth: "0.75rem",
+                    minHeight: "0.75rem",
+                    padding: 0,
+                  }}
+                >
+                  ?
+                </button>
+              </div>
+            </label>
+          </span>
         </div>
 
         <button
