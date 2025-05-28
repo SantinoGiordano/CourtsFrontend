@@ -1,7 +1,7 @@
 "use client";
 import { GameItem } from "@/types/type";
 import React, { useEffect, useRef, useState } from "react";
-import Map from "@/app/componets/map";
+import Map from "@/app/components/map";
 import { useRouter } from "next/navigation";
 const CreateGame: React.FC = () => {
   const [form, setForm] = useState<Omit<GameItem, "_id">>({

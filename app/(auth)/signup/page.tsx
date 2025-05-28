@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useUserStore } from "@/app/store"; 
-import AccountToast from "@/app/componets/AccountToast";
+import AccountToast from "@/app/components/AccountToast";
 
 export default function SignUpPage() {
   const router = useRouter();

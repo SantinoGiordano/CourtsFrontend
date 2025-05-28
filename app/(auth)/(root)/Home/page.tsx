@@ -1,10 +1,10 @@
 "use client";
 
-import SearchBar from "@/app/componets/searchbar";
+import SearchBar from "@/app/components/searchbar";
 import { useUserStore } from "@/app/store";
 import { GameItem } from "@/types/type";
 import { useEffect, useState } from "react";
-import Map from "@/app/componets/map";
+import Map from "@/app/components/map";
 import React from "react";
 
 export default function Home() {
