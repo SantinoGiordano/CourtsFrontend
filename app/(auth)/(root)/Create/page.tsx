@@ -19,59 +19,61 @@ const CreateGame: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const autocompleteRef = useRef<HTMLInputElement | null>(null);
-  const autocompleteInstance = useRef<google.maps.places.Autocomplete | null>(null);
+  const autocompleteInstance = useRef<google.maps.places.Autocomplete | null>(
+    null
+  );
 
-useEffect(() => {
-  let autocomplete: google.maps.places.Autocomplete | null = null;
-  const scriptLoaded = typeof window !== "undefined" && !!window.google;
+  useEffect(() => {
+    let autocomplete: google.maps.places.Autocomplete | null = null;
+    const scriptLoaded = typeof window !== "undefined" && !!window.google;
 
-  const initAutocomplete = () => {
-    if (!autocompleteRef.current || !window.google?.maps?.places) return;
-    autocomplete = new window.google.maps.places.Autocomplete(
-      autocompleteRef.current,
-      { types: ["geocode"] }
-    );
-    autocomplete.addListener("place_changed", () => {
-      const place = autocomplete!.getPlace();
-      if (place.geometry && place.geometry.location) {
-        const lat = place.geometry.location.lat();
-        const lng = place.geometry.location.lng();
-        setForm((prev) => ({
-          ...prev,
-          location: place.formatted_address || "",
-          lat,
-          lng,
-        }));
-      }
-    });
-    autocompleteInstance.current = autocomplete;
-  };
+    const initAutocomplete = () => {
+      if (!autocompleteRef.current || !window.google?.maps?.places) return;
+      autocomplete = new window.google.maps.places.Autocomplete(
+        autocompleteRef.current,
+        { types: ["geocode"] }
+      );
+      autocomplete.addListener("place_changed", () => {
+        const place = autocomplete!.getPlace();
+        if (place.geometry && place.geometry.location) {
+          const lat = place.geometry.location.lat();
+          const lng = place.geometry.location.lng();
+          setForm((prev) => ({
+            ...prev,
+            location: place.formatted_address || "",
+            lat,
+            lng,
+          }));
+        }
+      });
+      autocompleteInstance.current = autocomplete;
+    };
 
-  if (scriptLoaded) {
-    initAutocomplete();
-  } else {
-    // Only add the script if it hasn't been added yet
-    const existingScript = document.getElementById("__googleMapsScriptId");
-    if (!existingScript) {
-      const script = document.createElement("script");
-      script.id = "__googleMapsScriptId";
-      script.src = `https://maps.googleapis.com/maps/api/js?key=${process.env.NEXT_PUBLIC_API_KEY}&libraries=places`;
-      script.async = true;
-      script.onload = initAutocomplete;
-      document.body.appendChild(script);
+    if (scriptLoaded) {
+      initAutocomplete();
     } else {
-      existingScript.addEventListener("load", initAutocomplete);
+      // Only add the script if it hasn't been added yet
+      const existingScript = document.getElementById("__googleMapsScriptId");
+      if (!existingScript) {
+        const script = document.createElement("script");
+        script.id = "__googleMapsScriptId";
+        script.src = `https://maps.googleapis.com/maps/api/js?key=${process.env.NEXT_PUBLIC_API_KEY}&libraries=places`;
+        script.async = true;
+        script.onload = initAutocomplete;
+        document.body.appendChild(script);
+      } else {
+        existingScript.addEventListener("load", initAutocomplete);
+      }
     }
-  }
 
-  // Cleanup
-  return () => {
-    if (autocomplete) {
-      window.google.maps.event.clearInstanceListeners(autocomplete);
-    }
-  };
-}, []);
-  
+    // Cleanup
+    return () => {
+      if (autocomplete) {
+        window.google.maps.event.clearInstanceListeners(autocomplete);
+      }
+    };
+  }, []);
+
   const geocodeLocation = async (location: string) => {
     try {
       const response = await fetch(
@@ -140,6 +142,7 @@ useEffect(() => {
     }));
   };
 
+  // When submitting the form, make sure form.lat and form.lng are set
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
@@ -148,10 +151,8 @@ useEffect(() => {
     try {
       const response = await fetch("http://localhost:8080/api/makegames", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(form),
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form), // form should include lat and lng
       });
 
       if (!response.ok) {
