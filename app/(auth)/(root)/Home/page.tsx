@@ -4,6 +4,8 @@ import SearchBar from "@/app/componets/searchbar";
 import { useUserStore } from "@/app/store";
 import { GameItem } from "@/types/type";
 import { useEffect, useState } from "react";
+import Map from "@/app/componets/map";
+import React from "react";
 
 export default function Home() {
   const [items, setItems] = useState<GameItem[]>([]);
@@ -39,7 +41,7 @@ export default function Home() {
     setSearchValue(e.target.value);
   };
   const filteredGames = loading
-    ? [] // Return an empty array if loading
+    ? []
     : Array.isArray(items)
       ? items.filter((game) =>
           game.type?.toLowerCase().includes(searchValue.trim().toLowerCase())
@@ -51,9 +53,7 @@ export default function Home() {
       <div className="text-white p-6"></div>
       <div className="min-h-screen bg-gray-100 p-6">
         <h1 className="text-3xl font-semibold mb-6 text-center text-gray-800"></h1>
-       <h1 className="text-3xl font-bold">
-        Welcome {username || ""}
-      </h1>
+        <h1 className="text-3xl font-bold">Welcome {username || ""}</h1>
         <div className="max-w-md mx-auto mb-6">
           <label
             htmlFor="search"
@@ -78,64 +78,74 @@ export default function Home() {
           <p className="text-center text-gray-600 text-lg">No games found.</p>
         ) : (
           <div className="grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-            {filteredGames.map((game) => (
-              <div
-                key={game._id}
-                className="bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden transition hover:shadow-2xl"
-              >
-                {/* Game Type - Blue Header */}
-                <div className="bg-blue-600 text-white px-6 py-4">
-                  <h2 className="text-xl font-bold">Game Type: {game.type}</h2>
-                </div>
+            {filteredGames.map((game) => {
+              console.log("Game:", game); // <-- Add this line
+              return (
+                <div
+                  key={game._id}
+                  className="bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden transition hover:shadow-2xl"
+                >
+                  {/* Game Type - Blue Header */}
+                  <div className="bg-blue-600 text-white px-6 py-4">
+                    <h2 className="text-xl font-bold">Game Type: {game.type}</h2>
+                  </div>
 
-                {/* Rest of the card - White */}
-                <div className="p-6 space-y-2">
-                  <p className="text-gray-700">
-                    <span className="font-semibold">Who&apos;s Posting:</span>{" "}
-                    {game.name}
-                  </p>
-                  <p className="text-gray-700">
-                    <span className="font-semibold">Location:</span>{" "}
-                    {game.location}
-                  </p>
-                  <p
-                    className={`${
-                      game.status ? "text-green-600" : "text-red-600"
-                    } font-semibold`}
-                  >
-                    <span>Status:</span> {game.status ? "Full" : "Need Players"}
-                  </p>
-                  <p className="text-gray-700">
-                    <span className="font-semibold">Players Playing:</span>{" "}
-                    {game.playershave}
-                  </p>
-                  <p className="text-gray-700">
-                    <span className="font-semibold">Players Needed:</span>{" "}
-                    {game.playersneed}
-                  </p>
-                  {game.time && (
-                    <p className="text-gray-500 text-sm">
-                      <span className="font-semibold">Time:</span>{" "}
-                      {new Date(game.time).toLocaleString()}
+                  {/* Rest of the card - White */}
+                  <div className="p-6 space-y-2">
+                    <p className="text-gray-700">
+                      <span className="font-semibold">Who&apos;s Posting:</span>{" "}
+                      {game.name}
                     </p>
-                  )}
-                  <p
-                    className="text-blue-600 text-sm cursor-pointer hover:underline"
-                    onClick={() =>
-                      setExpanded(expanded === game._id ? null : game._id)
-                    }
-                  >
-                    {expanded === game._id ? "Hide Description" : "Description"}
-                  </p>
+                    <p className="text-gray-700">
+                      <span className="font-semibold">Location:</span>{" "}
+                      {game.location}
+                    </p>
+                    {Number(game.lat) && Number(game.lng) ? (
+                      <Map lat={Number(game.lat)} lng={Number(game.lng)} />
+                    ) : (
+                      <div className="text-sm text-gray-400">
+                        No map location available
+                      </div>
+                    )}
+                    <p
+                      className={`${
+                        game.status ? "text-green-600" : "text-red-600"
+                      } font-semibold`}
+                    >
+                      <span>Status:</span> {game.status ? "Full" : "Need Players"}
+                    </p>
+                    <p className="text-gray-700">
+                      <span className="font-semibold">Players Playing:</span>{" "}
+                      {game.playershave}
+                    </p>
+                    <p className="text-gray-700">
+                      <span className="font-semibold">Players Needed:</span>{" "}
+                      {game.playersneed}
+                    </p>
+                    {game.time && (
+                      <p className="text-gray-500 text-sm">
+                        <span className="font-semibold">Time:</span>{" "}
+                        {new Date(game.time).toLocaleString()}
+                      </p>
+                    )}
+                    <p
+                      className="text-blue-600 text-sm cursor-pointer hover:underline"
+                      onClick={() =>
+                        setExpanded(expanded === game._id ? null : game._id)
+                      }
+                    >
+                      {expanded === game._id ? "Hide Description" : "Description"}
+                    </p>
 
-                  {expanded === game._id && (
-                    <p className="text-gray-700 mt-2 border-t pt-2">
-                      {game.description}
-                    </p>
-                  )}
+                    {expanded === game._id && (
+                      <p className="text-gray-700 mt-2 border-t pt-2">
+                        {game.description}
+                      </p>
+                    )}
+                  </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         )}
       </div>
