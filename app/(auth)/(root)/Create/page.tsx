@@ -2,6 +2,7 @@
 import { GameItem } from "@/types/type";
 import React, { useEffect, useRef, useState } from "react";
 import Map from "@/app/componets/map";
+import { useRouter } from "next/navigation";
 const CreateGame: React.FC = () => {
   const [form, setForm] = useState<Omit<GameItem, "_id">>({
     status: false,
@@ -15,7 +16,7 @@ const CreateGame: React.FC = () => {
     lat: undefined,
     lng: undefined,
   });
-
+  const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const autocompleteRef = useRef<HTMLInputElement | null>(null);
@@ -178,10 +179,10 @@ const CreateGame: React.FC = () => {
     }
   };
 
+
   return (
     <div className="max-w-2xl mx-auto p-8 bg-white rounded-2xl shadow-lg space-y-6">
-       <p className="mt-"/>      
-       <h1 className="text-3xl font-bold text-center text-gray-800">
+      <h1 className="text-3xl font-bold text-center text-gray-800">
         Create a New Game
       </h1>
 
@@ -261,6 +262,17 @@ const CreateGame: React.FC = () => {
 
           <div className="md:col-span-2">
             <label className="block text-sm font-medium text-gray-700 mb-1">
+              Whos Posting
+            </label>
+            <input
+              type="text"
+              name="name"
+              placeholder=" Jonh Smith"
+              value={form.name}
+              onChange={handleChange}
+              className="input input-bordered w-full"
+            />
+            <label className="block text-sm font-medium text-gray-700 mb-1">
               Date & Time
             </label>
             <input
@@ -324,6 +336,7 @@ const CreateGame: React.FC = () => {
 
         <button
           type="submit"
+          onClick={()=> router.push("/Home")}
           className={`btn btn-primary w-full text-white ${
             loading ? "opacity-70 cursor-not-allowed" : ""
           }`}
