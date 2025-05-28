@@ -43,9 +43,12 @@ export default function Home() {
   const filteredGames = loading
     ? []
     : Array.isArray(items)
-      ? items.filter((game) =>
-          game.type?.toLowerCase().includes(searchValue.trim().toLowerCase())
-        )
+      ? items
+          .slice() 
+          .reverse()
+          .filter((game) =>
+            game.type?.toLowerCase().includes(searchValue.trim().toLowerCase())
+          )
       : [];
 
   return (
@@ -86,7 +89,9 @@ export default function Home() {
                 >
                   {/* Game Type - Blue Header */}
                   <div className="bg-blue-600 text-white px-6 py-4">
-                    <h2 className="text-xl font-bold">Game Type: {game.type}</h2>
+                    <h2 className="text-xl font-bold">
+                      Game Type: {game.type}
+                    </h2>
                   </div>
 
                   {/* Rest of the card - White */}
@@ -111,7 +116,8 @@ export default function Home() {
                         game.status ? "text-green-600" : "text-red-600"
                       } font-semibold`}
                     >
-                      <span>Status:</span> {game.status ? "Full" : "Need Players"}
+                      <span>Status:</span>{" "}
+                      {game.status ? "Full" : "Need Players"}
                     </p>
                     <p className="text-gray-700">
                       <span className="font-semibold">Players Playing:</span>{" "}
@@ -133,7 +139,9 @@ export default function Home() {
                         setExpanded(expanded === game._id ? null : game._id)
                       }
                     >
-                      {expanded === game._id ? "Hide Description" : "Description"}
+                      {expanded === game._id
+                        ? "Hide Description"
+                        : "Description"}
                     </p>
 
                     {expanded === game._id && (
