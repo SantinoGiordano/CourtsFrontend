@@ -8,6 +8,7 @@ export default function MainLayout({
   return (
     <>
       <Nav />
+      <p className="p-5"></p>
         {children}
     </>
   );
