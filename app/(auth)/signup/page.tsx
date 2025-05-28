@@ -2,15 +2,17 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { useUserStore } from "@/app/store"; // adjust the import if needed
+import { useUserStore } from "@/app/store"; 
+import AccountToast from "@/app/componets/AccountToast";
 
 export default function SignUpPage() {
   const router = useRouter();
   const [email, setEmail] = useState("");
-  const [username, setUsernameInput] = useState(""); // local input state
+  const [username, setUsernameInput] = useState(""); 
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const setUsername = useUserStore((state) => state.setUsername); // zustand state setter
+  const setUsername = useUserStore((state) => state.setUsername); 
+  const [showToast, setShowToast] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -34,7 +36,10 @@ export default function SignUpPage() {
       if (res.ok) {
         setUsername(data.username); // ✅ Save in Zustand
         localStorage.setItem("username", data.username);
-        router.push("/Home");
+        setShowToast(true);
+        setEmail(""); // Clear email input
+        setUsernameInput(""); // Clear username input
+        setPassword(""); // Clear password input
       } else {
         setError(data.error || "Sign up failed.");
       }
@@ -114,6 +119,7 @@ export default function SignUpPage() {
           Back to Sign In
         </button>
       </form>
+      {showToast && <AccountToast />}
     </div>
   );
 }
