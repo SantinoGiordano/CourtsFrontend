@@ -37,12 +37,6 @@ export default function Navbar() {
             About
           </Link>
           <Link
-            href="./statusReport"
-            className="block text-white dark:text-white hover:text-blue-300"
-          >
-            Status Report
-          </Link>
-          <Link
             href="/contact"
             className="text-white dark:text-white hover:text-blue-300"
           >
