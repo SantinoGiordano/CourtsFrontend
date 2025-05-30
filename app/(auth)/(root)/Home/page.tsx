@@ -44,7 +44,7 @@ export default function Home() {
     ? []
     : Array.isArray(items)
       ? items
-          .slice() 
+          .slice()
           .reverse()
           .filter((game) =>
             game.type?.toLowerCase().includes(searchValue.trim().toLowerCase())
@@ -119,6 +119,44 @@ export default function Home() {
                       <span>Status:</span>{" "}
                       {game.status ? "Full" : "Need Players"}
                     </p>
+                    <button
+                      onClick={async () => {
+                        try {
+                          const res = await fetch(
+                            `http://localhost:8080/api/Games/join/${game._id}`,
+                            {
+                              method: "PATCH",
+                            }
+                          );
+
+                          const data = await res.json();
+                          if (!res.ok) {
+                            throw new Error(data.error || "Failed to join");
+                          }
+
+                          // Refresh UI by refetching games or updating local state
+                          setItems((prevItems) =>
+                            prevItems.map((g) =>
+                              g._id === game._id
+                                ? {
+                                    ...g,
+                                    playershave: g.playershave + 1,
+                                    playersneed: g.playersneed - 1,
+                                  }
+                                : g
+                            )
+                          );
+                        } catch (err) {
+                          console.error("Join failed:", err);
+                          alert("Could not join this game.");
+                        }
+                      }}
+                      disabled={game.playersneed <= 0}
+                      className="mt-4 w-full bg-indigo-600 text-white py-2 px-4 rounded hover:bg-indigo-700 disabled:opacity-50"
+                    >
+                      {game.playersneed > 0 ? "Join Game" : "Game Full"}
+                    </button>
+
                     <p className="text-gray-700">
                       <span className="font-semibold">Players Playing:</span>{" "}
                       {game.playershave}
