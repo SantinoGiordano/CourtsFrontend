@@ -181,8 +181,8 @@ const CreateGame: React.FC = () => {
 
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-blue-100 via-white to-indigo-100 p-4">
-    <div className="max-w-2xl mx-auto p-8 bg-white rounded-2xl shadow-lg space-y-6">
+    <div className="bg-gradient-to-br from-blue-100 via-white to-indigo-100 p-4 min-h-screen">
+    <div className="mt-15 max-w-2xl mx-auto p-8 bg-white rounded-2xl shadow-lg space-y-6">
       <h1 className="text-3xl font-bold text-center text-gray-800">
         Create a New Game
       </h1>
@@ -199,7 +199,7 @@ const CreateGame: React.FC = () => {
               onChange={handleChange}
               className="select select-bordered w-full"
               required
-            >
+              >
               <option value="" disabled>
                 Select Game Type
               </option>
@@ -225,7 +225,7 @@ const CreateGame: React.FC = () => {
               placeholder="Where is the game?"
               className="input input-bordered w-full"
               autoComplete="off"
-            />
+              />
             {form.lat && form.lng && (
               <div className="mt-4">
                 <Map lat={form.lat} lng={form.lng} />
@@ -244,7 +244,7 @@ const CreateGame: React.FC = () => {
               onChange={handleChange}
               className="input input-bordered w-full"
               min={0}
-            />
+              />
           </div>
 
           <div>
@@ -258,7 +258,7 @@ const CreateGame: React.FC = () => {
               onChange={handleChange}
               className="input input-bordered w-full"
               min={0}
-            />
+              />
           </div>
 
           <div className="md:col-span-2">
@@ -272,7 +272,7 @@ const CreateGame: React.FC = () => {
               value={form.name}
               onChange={handleChange}
               className="input input-bordered w-full"
-            />
+              />
             <label className="block text-sm font-medium text-gray-700 mb-1">
               Date & Time
             </label>
@@ -286,7 +286,7 @@ const CreateGame: React.FC = () => {
                 }))
               }
               className="input input-bordered w-full"
-            />
+              />
           </div>
 
           <div className="md:col-span-2">
@@ -300,7 +300,7 @@ const CreateGame: React.FC = () => {
               placeholder="Add a description"
               className="textarea textarea-bordered w-full p-3 rounded-md border-2 border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition duration-200"
               rows={4}
-            />
+              />
           </div>
         </div>
 
@@ -311,14 +311,14 @@ const CreateGame: React.FC = () => {
             checked={form.status}
             onChange={handleChange}
             className="checkbox"
-          />
+            />
           <span>
             <label className="text-sm text-gray-600">
               Check if your team is already full
               <div
                 className="tooltip"
                 data-tip="By checking this, you indicate that you are NOT looking for players"
-              >
+                >
                 <button
                   type="button"
                   className="ml-2 w-5 h-5 rounded-full bg-black text-white flex items-center justify-center text-xs font-bold border border-gray-300 hover:bg-gray-300 transition"
@@ -327,7 +327,7 @@ const CreateGame: React.FC = () => {
                     minHeight: "0.75rem",
                     padding: 0,
                   }}
-                >
+                  >
                   ?
                 </button>
               </div>
@@ -340,9 +340,9 @@ const CreateGame: React.FC = () => {
           onClick={()=> router.push("/Home")}
           className={`btn btn-primary w-full text-white ${
             loading ? "opacity-70 cursor-not-allowed" : ""
-          }`}
-          disabled={loading}
-        >
+            }`}
+            disabled={loading}
+            >
           {loading ? "Creating..." : "Create Game"}
         </button>
 
@@ -352,7 +352,7 @@ const CreateGame: React.FC = () => {
           </p>
         )}
       </form>
-    </div>
+        </div>
     </div>
   );
 };
