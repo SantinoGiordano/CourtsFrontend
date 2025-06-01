@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Menu, X } from "lucide-react";
+import { Menu, X, PlusCircle, Info, Mail, LogOut, BarChart, Home } from "lucide-react";
 import { useState } from "react";
 
 export default function Navbar() {
@@ -20,32 +20,37 @@ export default function Navbar() {
         <div className="text-white dark:text-white hover:text-blue-300 hidden md:flex space-x-6">
           <Link
             href="./Home"
-            className="text-white dark:text-white hover:text-blue-300"
+            className="flex items-center text-white dark:text-white hover:text-blue-300"
           >
+            <Home className="w-4 h-4 mr-1" />
             Find Games
           </Link>
           <Link
             href="./Create"
-            className="block text-white dark:text-white hover:text-blue-300"
+            className="flex items-center text-white dark:text-white hover:text-blue-300"
           >
+            <PlusCircle className="w-4 h-4 mr-1" />
             Create
           </Link>
           <Link
             href="/About"
-            className="text-white dark:text-white hover:text-blue-300"
+            className="flex items-center text-white dark:text-white hover:text-blue-300"
           >
+            <Info className="w-4 h-4 mr-1" />
             About
           </Link>
           <Link
             href="/contact"
-            className="text-white dark:text-white hover:text-blue-300"
+            className="flex items-center text-white dark:text-white hover:text-blue-300"
           >
+            <Mail className="w-4 h-4 mr-1" />
             Contact
           </Link>
           <Link
             href="./"
-            className="block text-white dark:text-white hover:text-blue-300"
+            className="flex items-center text-white dark:text-white hover:text-blue-300"
           >
+            <LogOut className="w-4 h-4 mr-1" />
             Log Out
           </Link>
         </div>
@@ -61,38 +66,44 @@ export default function Navbar() {
         <div className="md:hidden px-4 pb-3 space-y-2">
           <Link
             href="./"
-            className="block text-white dark:text-white hover:text-blue-300"
+            className="flex items-center text-white dark:text-white hover:text-blue-300"
           >
+            <Home className="w-4 h-4 mr-1" />
             Find Games
           </Link>
           <Link
             href="./Create"
-            className="block text-white dark:text-white hover:text-blue-300"
+            className="flex items-center text-white dark:text-white hover:text-blue-300"
           >
+            <PlusCircle className="w-4 h-4 mr-1" />
             Create
           </Link>
           <Link
             href="./About"
-            className="block text-white dark:text-white hover:text-blue-300"
+            className="flex items-center text-white dark:text-white hover:text-blue-300"
           >
+            <Info className="w-4 h-4 mr-1" />
             About
           </Link>
           <Link
             href="./statusReport"
-            className="block text-white dark:text-white hover:text-blue-300"
+            className="flex items-center text-white dark:text-white hover:text-blue-300"
           >
+            <BarChart className="w-4 h-4 mr-1" />
             Status Report
           </Link>
           <Link
             href="./contact"
-            className="block text-white dark:text-white hover:text-blue-300"
+            className="flex items-center text-white dark:text-white hover:text-blue-300"
           >
+            <Mail className="w-4 h-4 mr-1" />
             Contact
           </Link>
           <Link
             href="./"
-            className="block text-white dark:text-white hover:text-blue-300"
+            className="flex items-center text-white dark:text-white hover:text-blue-300"
           >
+            <LogOut className="w-4 h-4 mr-1" />
             Log Out
           </Link>
         </div>
