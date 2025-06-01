@@ -53,9 +53,8 @@ export default function Home() {
 
   return (
     <>
-      <div className="min-h-screen bg-gray-100 p-6">
-        <h1 className="text-3xl font-semibold mb-6 text-center text-gray-800"></h1>
-        <h1 className="text-3xl font-bold">Welcome {username || ""}</h1>
+      <div className="min-h-screen bg-gradient-to-br from-blue-100 via-white to-indigo-100 p-4">
+        <h1 className="text-3xl font-bold text-center mt-5">Welcome {username || ""}</h1>
         <div className="max-w-md mx-auto mb-6">
           <label
             htmlFor="search"

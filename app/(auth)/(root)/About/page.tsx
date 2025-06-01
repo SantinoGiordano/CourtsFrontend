@@ -1,6 +1,6 @@
 export default function About() {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white py-12 px-4 sm:px-6 lg:px-8">
+    <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-blue-100 via-white to-indigo-100 p-4">
       <div className="max-w-3xl mx-auto bg-white rounded-3xl shadow-xl p-10 space-y-10">
         <header className="text-center">
           <h1 className="text-4xl font-extrabold text-gray-900 mb-2">
@@ -46,6 +46,6 @@ export default function About() {
           </p>
         </section>
       </div>
-    </div>
-  );
+      </div>  
+      );
 }

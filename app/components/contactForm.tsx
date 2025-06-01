@@ -30,6 +30,7 @@ export default function ContactForm() {
       }
     } catch (err) {
       setStatus('Error sending message');
+      console.error('Send error:', err);
     }
   };
 
@@ -43,7 +44,7 @@ export default function ContactForm() {
           Contact Us
         </h2>
         <p className="text-gray-500 text-center mb-6">
-          We'd love to hear from you!
+          We&apos;d love to hear from you!
         </p>
         <div>
           <label
