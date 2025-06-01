@@ -6,6 +6,7 @@ import { GameItem } from "@/types/type";
 import { useEffect, useState } from "react";
 import Map from "@/app/components/map";
 import React from "react";
+import { ChevronDown, ChevronUp, Info } from "lucide-react";
 
 export default function Home() {
   const [items, setItems] = useState<GameItem[]>([]);
@@ -174,22 +175,38 @@ export default function Home() {
                         {new Date(game.time).toLocaleString()}
                       </p>
                     )}
-                    <p
-                      className="text-blue-600 text-sm cursor-pointer hover:underline"
-                      onClick={() =>
-                        setExpanded(expanded === game._id ? null : game._id)
-                      }
-                    >
-                      {expanded === game._id
-                        ? "Hide Description"
-                        : "Description"}
-                    </p>
 
-                    {expanded === game._id && (
-                      <p className="text-gray-700 mt-2 border-t pt-2">
-                        {game.description}
-                      </p>
-                    )}
+                    {/* Description Toggle */}
+                    <div className="my-3">
+                      <button
+                        className="flex items-center gap-1 text-blue-600 text-sm font-medium hover:underline focus:outline-none"
+                        onClick={() =>
+                          setExpanded(expanded === game._id ? null : game._id)
+                        }
+                      >
+                        <Info className="w-4 h-4" />
+                        {expanded === game._id ? "Hide Description" : "Show Description"}
+                        {expanded === game._id ? (
+                          <ChevronUp className="w-4 h-4" />
+                        ) : (
+                          <ChevronDown className="w-4 h-4" />
+                        )}
+                      </button>
+                    </div>
+
+                    {/* Animated Description */}
+                    <div
+                      className={`transition-all duration-300 ease-in-out overflow-hidden ${
+                        expanded === game._id ? "max-h-40 opacity-100 mt-2" : "max-h-0 opacity-0"
+                      }`}
+                    >
+                      {expanded === game._id && (
+                        <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 text-gray-700 shadow-inner">
+                          <span className="font-semibold block mb-1">Description:</span>
+                          {game.description}
+                        </div>
+                      )}
+                    </div>
                   </div>
                 </div>
               );
