@@ -55,7 +55,9 @@ export default function Home() {
   return (
     <>
       <div className="min-h-screen bg-gradient-to-br from-blue-100 via-white to-indigo-100 p-4">
-        <h1 className="text-3xl font-bold text-center mt-5">Welcome {username || ""}</h1>
+        <h1 className="text-3xl font-bold text-center mt-5">
+          Welcome {username || ""}
+        </h1>
         <div className="max-w-md mx-auto mb-6">
           <label
             htmlFor="search"
@@ -125,7 +127,7 @@ export default function Home() {
                           const res = await fetch(
                             `http://localhost:8080/api/Games/join/${game._id}`,
                             {
-                              method: "POST",
+                              method: "POST", // Use POST if your backend expects POST, or PATCH if it expects PATCH
                               headers: {
                                 "Content-Type": "application/json",
                               },
@@ -135,10 +137,12 @@ export default function Home() {
 
                           const data = await res.json();
                           if (!res.ok) {
-                            throw new Error(data.error || "Failed to join");
+                            // Show backend error (e.g., "You have already joined this game.")
+                            alert(data.error || "Failed to join");
+                            return;
                           }
 
-                          // Refresh UI by refetching games or updating local state
+                          // Optionally, refetch games from backend here for full sync
                           setItems((prevItems) =>
                             prevItems.map((g) =>
                               g._id === game._id
@@ -146,21 +150,34 @@ export default function Home() {
                                     ...g,
                                     playershave: g.playershave + 1,
                                     playersneed: g.playersneed - 1,
+                                    joinedUsers: [
+                                      ...(g.joinedUsers || []),
+                                      username,
+                                    ], // update joinedUsers in UI
                                   }
                                 : g
                             )
                           );
+                          alert("Joined game successfully!");
                         } catch (err) {
                           console.error("Join failed:", err);
                           alert("Could not join this game.");
                         }
                       }}
-                      disabled={game.playersneed <= 0}
+                      disabled={
+                        game.playersneed <= 0 ||
+                        (game.joinedUsers &&
+                          game.joinedUsers.includes(username))
+                      }
                       className="mt-4 w-full bg-indigo-600 text-white py-2 px-4 rounded hover:bg-indigo-700 disabled:opacity-50"
                     >
-                      {game.playersneed > 0 ? "Join Game" : "Game Full"}
+                      {game.playersneed <= 0
+                        ? "Game Full"
+                        : game.joinedUsers &&
+                            game.joinedUsers.includes(username)
+                          ? "Already Joined"
+                          : "Join Game"}
                     </button>
-
                     <p className="text-gray-700">
                       <span className="font-semibold">Players Playing:</span>{" "}
                       {game.playershave}
@@ -185,7 +202,9 @@ export default function Home() {
                         }
                       >
                         <Info className="w-4 h-4" />
-                        {expanded === game._id ? "Hide Description" : "Show Description"}
+                        {expanded === game._id
+                          ? "Hide Description"
+                          : "Show Description"}
                         {expanded === game._id ? (
                           <ChevronUp className="w-4 h-4" />
                         ) : (
@@ -197,12 +216,16 @@ export default function Home() {
                     {/* Animated Description */}
                     <div
                       className={`transition-all duration-300 ease-in-out overflow-hidden ${
-                        expanded === game._id ? "max-h-40 opacity-100 mt-2" : "max-h-0 opacity-0"
+                        expanded === game._id
+                          ? "max-h-40 opacity-100 mt-2"
+                          : "max-h-0 opacity-0"
                       }`}
                     >
                       {expanded === game._id && (
                         <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 text-gray-700 shadow-inner">
-                          <span className="font-semibold block mb-1">Description:</span>
+                          <span className="font-semibold block mb-1">
+                            Description:
+                          </span>
                           {game.description}
                         </div>
                       )}
@@ -217,5 +240,3 @@ export default function Home() {
     </>
   );
 }
-
-
