@@ -10,6 +10,7 @@ export type GameItem = {
   description: string;
   lat?: number;
   lng?: number;
+  joinedUsers?: string[];
 };
 
 export type User = {
