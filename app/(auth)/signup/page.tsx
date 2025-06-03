@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useUserStore } from "@/app/store"; 
 import AccountToast from "@/app/components/AccountToast";
+import { API_COURTS_BACKEND } from "@/utils/env";
 
 export default function SignUpPage() {
   const router = useRouter();
@@ -23,7 +24,7 @@ export default function SignUpPage() {
     }
 
     try {
-      const res = await fetch("http://localhost:8080/api/auth/signup", {
+      const res = await fetch(`${API_COURTS_BACKEND}/api/auth/signup`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

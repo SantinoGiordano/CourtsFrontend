@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import Map from "@/app/components/map";
 import React from "react";
 import { ChevronDown, ChevronUp, Info } from "lucide-react";
+import { API_COURTS_BACKEND } from "@/utils/env";
 
 export default function Home() {
   const [items, setItems] = useState<GameItem[]>([]);
@@ -18,7 +19,7 @@ export default function Home() {
   useEffect(() => {
     const fetchGames = async () => {
       try {
-        const res = await fetch("http://localhost:8080/api/Games");
+        const res = await fetch(`${API_COURTS_BACKEND}/api/Games`);
         const data = await res.json();
         console.log("Fetched games:", data);
 
@@ -125,7 +126,7 @@ export default function Home() {
                       onClick={async () => {
                         try {
                           const res = await fetch(
-                            `http://localhost:8080/api/Games/join/${game._id}`,
+                            `${API_COURTS_BACKEND}/api/Games/join/${game._id}`,
                             {
                               method: "POST", // Use POST if your backend expects POST, or PATCH if it expects PATCH
                               headers: {

@@ -3,6 +3,7 @@
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useUserStore } from "../store";
+import { API_COURTS_BACKEND } from "@/utils/env";
 
 export default function SignInPage() {
   const router = useRouter();
@@ -20,7 +21,7 @@ export default function SignInPage() {
     }
 
     try {
-      const res = await fetch("http://localhost:8080/api/auth/signin", {
+      const res = await fetch(`${API_COURTS_BACKEND}/api/auth/signin`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
