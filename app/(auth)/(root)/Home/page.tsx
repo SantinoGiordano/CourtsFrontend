@@ -116,11 +116,11 @@ export default function Home() {
                     )}
                     <p
                       className={`${
-                        game.status ? "text-green-600" : "text-red-600"
+                        game.playersneed === 0 ? "text-green-600" : "text-red-600"
                       } font-semibold`}
                     >
                       <span>Status:</span>{" "}
-                      {game.status ? "Full" : "Need Players"}
+                      {game.playersneed === 0 ? "Full" : "Need Players"}
                     </p>
                     <button
                       onClick={async () => {
