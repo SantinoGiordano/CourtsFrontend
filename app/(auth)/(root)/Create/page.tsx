@@ -17,7 +17,7 @@ const CreateGame: React.FC = () => {
     lat: undefined,
     lng: undefined,
   });
-  const router = useRouter();
+  // const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const autocompleteRef = useRef<HTMLInputElement | null>(null);
@@ -338,7 +338,7 @@ const CreateGame: React.FC = () => {
 
         <button
           type="submit"
-          onClick={()=> router.push("/Create")}
+          // onClick={()=> router.push("/Create")}
           className={`btn btn-primary w-full text-white ${
             loading ? "opacity-70 cursor-not-allowed" : ""
             }`}
