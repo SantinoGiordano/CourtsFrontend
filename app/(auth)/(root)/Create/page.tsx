@@ -338,7 +338,7 @@ const CreateGame: React.FC = () => {
 
         <button
           type="submit"
-          onClick={()=> router.push("/Home")}
+          onClick={()=> router.push("/Create")}
           className={`btn btn-primary w-full text-white ${
             loading ? "opacity-70 cursor-not-allowed" : ""
             }`}
