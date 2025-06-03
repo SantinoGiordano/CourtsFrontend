@@ -3,6 +3,7 @@ import { GameItem } from "@/types/type";
 import React, { useEffect, useRef, useState } from "react";
 import Map from "@/app/components/map";
 import { useRouter } from "next/navigation";
+import { API_COURTS_BACKEND } from "@/utils/env";
 const CreateGame: React.FC = () => {
   const [form, setForm] = useState<Omit<GameItem, "_id">>({
     status: false,
@@ -149,7 +150,7 @@ const CreateGame: React.FC = () => {
     setSuccess(false);
 
     try {
-      const response = await fetch("http://localhost:8080/api/makegames", {
+      const response = await fetch(`${API_COURTS_BACKEND}/api/makegames`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(form),
