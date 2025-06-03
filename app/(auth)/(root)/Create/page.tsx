@@ -2,7 +2,7 @@
 import { GameItem } from "@/types/type";
 import React, { useEffect, useRef, useState } from "react";
 import Map from "@/app/components/map";
-import { useRouter } from "next/navigation";
+// import { useRouter } from "next/navigation";
 import { API_COURTS_BACKEND } from "@/utils/env";
 const CreateGame: React.FC = () => {
   const [form, setForm] = useState<Omit<GameItem, "_id">>({
