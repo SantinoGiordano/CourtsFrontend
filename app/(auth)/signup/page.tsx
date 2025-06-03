@@ -14,6 +14,7 @@ export default function SignUpPage() {
   const [error, setError] = useState("");
   const setUsername = useUserStore((state) => state.setUsername); 
   const [showToast, setShowToast] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -22,6 +23,8 @@ export default function SignUpPage() {
       setError("Please fill in all fields.");
       return;
     }
+
+    setLoading(true); // Start loading
 
     try {
       const res = await fetch(`${API_COURTS_BACKEND}/api/auth/signup`, {
@@ -35,18 +38,20 @@ export default function SignUpPage() {
       const data = await res.json();
 
       if (res.ok) {
-        setUsername(data.username); // ✅ Save in Zustand
+        setUsername(data.username);
         localStorage.setItem("username", data.username);
         setShowToast(true);
-        setEmail(""); // Clear email input
-        setUsernameInput(""); // Clear username input
-        setPassword(""); // Clear password input
+        setEmail("");
+        setUsernameInput("");
+        setPassword("");
       } else {
         setError(data.error || "Sign up failed.");
       }
     } catch (err) {
       console.error("Signup error:", err);
       setError("An error occurred during signup.");
+    } finally {
+      setLoading(false); // Stop loading
     }
   };
 
@@ -70,7 +75,7 @@ export default function SignUpPage() {
             placeholder="Username"
             className="w-full px-3 py-2 rounded bg-gray-700 text-white"
             value={username}
-            onChange={(e) => setUsernameInput(e.target.value)} // ✅ local state update
+            onChange={(e) => setUsernameInput(e.target.value)} 
             required
           />
         </div>
@@ -107,9 +112,13 @@ export default function SignUpPage() {
 
         <button
           type="submit"
-          className="w-full bg-blue-600 hover:bg-blue-700 transition-colors px-4 py-2 rounded"
+          className="w-full bg-blue-600 hover:bg-blue-700 transition-colors px-4 py-2 rounded flex items-center justify-center"
+          disabled={loading}
         >
-          Sign Up
+          {loading ? (
+            <span className="loading loading-spinner loading-sm mr-2"></span>
+          ) : null}
+          {loading ? "Creating Account..." : "Sign Up"}
         </button>
 
         <button
